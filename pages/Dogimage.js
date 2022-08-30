@@ -1,50 +1,35 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable jsx-a11y/alt-text */
-import Head from "next/head";
-import Image from "next/image";
-import { Fragment, useEffect, useState } from "react";
-import Navbar from "../components/Navbar";
-import styles from "../styles/Home.module.css";
+import React, { useEffect, useState,Fragment } from "react";
 import axios from "axios";
+import Image from "next/image";
+import Navbar from "../components/Navbar";
+import styles from ".././styles/Home.module.css"
 
-export default function Home() {
-  const [DataCat, setDatacat] = useState([]);
+export default function Dogimage() {
+  const [DataDog, setDataDog] = useState([]);
 
-  // ดึงข้อมูลจาก API ภายนอก มาแสดงใน Project
-  async function getDatecat() {
-    const res = await axios
-      .get("https://api.thecatapi.com/v1/images/search?limit=100")
+
+  // ดึงข้อมูลจาก API ภายนอก มาแสดงใน Project 
+  async function getDataDog() {
+    await axios
+      .get("https://api.thedogapi.com/v1/images/search?limit=100")
       .then((response) => {
-        setDatacat(response.data);
-      })
-      .catch((err) => {
-        alert("API NOT FOUND");
-        console.log(err)
+        setDataDog(response.data);
       });
   }
   useEffect(() => {
-    getDatecat();
+    getDataDog();
   }, []);
 
   return (
     <div className={styles.ImageBackgroudCat}>
-      <div
-        className="container"
-        style={{ overflow: "hidden", height: "100%", position: "relative" }}
-      >
+      <div className="container" style={{overflow:"hidden",height: "100%",position:"relative"}}>
         <div
           className="row row-cols-1 row-cols-lg-3 g-4 py-5"
-          style={{
-            marginTop: "50px",
-            position: "absolute",
-            top: "0",
-            left: "0",
-            bottom: "-20px",
-            right: "-20px",
-            overflowY: "scroll",
-          }}
+          style={{ marginTop: "50px",position:"absolute",top:"0",left:"0",bottom:"-20px",right:"-20px",overflowY:"scroll"}}
         >
-          {DataCat.map((v, index) => {
+          {DataDog.map((v, index) => {
             if (v) {
               return (
                 <div key={index} className="col px-5">
@@ -76,17 +61,18 @@ export default function Home() {
               );
             }
           })}
-        </div>
+          </div>
+          
       </div>
     </div>
   );
 }
 
-Home.getLayout = function getLayout(page) {
+Dogimage.getLayout = function getLayout(page) {
   return (
-    <Fragment>
-      <Navbar />
-      {page}
-    </Fragment>
+  <Fragment>
+    <Navbar/>
+    {page}
+  </Fragment>
   );
 };
