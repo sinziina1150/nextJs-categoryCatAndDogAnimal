@@ -7,7 +7,7 @@ import {useSelector} from "react-redux"
 import { useRouter } from "next/router";
 
 
-
+// ฟังชั่นสำหรับดึงข้อมูลของ userID และส่งข้อมูล ผ่าน props
 export async function getServerSideProps(context) {
   const res = await axios.get(
     `http://localhost:3001/animals/history/${context.params.userid}`
@@ -22,4 +22,6 @@ export async function getServerSideProps(context) {
   };
 }
 
+
+// export props ไปที่ history component
 export default History

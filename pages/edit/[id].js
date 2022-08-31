@@ -4,19 +4,23 @@ import axios from "axios";
 import Image from "next/image";
 import Navbar from "../../components/Navbar"
 export default function Animal  ({ data })  {
-  console.log(data)
   const [name, setName] = useState([]);
   const [weight, setWeight] = useState([]);
   const [heigth, setHeigth] = useState([]);
   const [image, setImage] = useState(null);
   const router = useRouter();
+
+  // set ข้อมูลที่รับมากจาก props และนำมาเซตไว้ตัวตัวแปล updateData
   const [updatedata, setUpdatedata] = useState(data);
 
+
+  // ฟังชั่น สำหรับ อัพเดทข้อมูล
   const onchangeData = (e) => {
     const { name, value } = e.target;
     setUpdatedata({ ...updatedata, [name]: value });
   };
-  console.log(data);
+
+// ฟังชั่นสำหรับการ upload File Image
   const onFileChange = (e) => {
     console.log(e)
     if (e.target && e.target.files[0]) {
@@ -27,6 +31,7 @@ export default function Animal  ({ data })  {
     } 
   };
 
+  // ฟังชั่นสำหรับ UpdateData เพื่อส่งข้อมูลไปหา Back-end
   const UpdateData = async (e) => {
     e.preventDefault();
     console.log(e); 
@@ -137,7 +142,7 @@ export default function Animal  ({ data })  {
 
 
 
-
+// ฟังชั่นสำหรับดึงข้อมูลของ animal ID ที่จะนำมาแก้ไขข้อมูล และส่งข้อมูล ผ่าน props
 export async function getServerSideProps(context) {
   console.log(context.params.id);
   const res = await axios.get(
